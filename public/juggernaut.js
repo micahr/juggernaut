@@ -79,6 +79,19 @@ Juggernaut.fn.subscribe = function(channel, callback){
   }
 };
 
+Juggernaut.fn.publish = function(channel,data){
+    if(!channel) throw "Must provide a channel";
+    
+    if (this.state != "connected"){
+        this.connect();
+    }
+    var message = new Juggernaut.Message;
+    message.type = "publish";
+    message.channel = channel;
+    message.data = data;
+    this.write(message);
+}
+
 // Private
 
 Juggernaut.fn.trigger = function(){ 
